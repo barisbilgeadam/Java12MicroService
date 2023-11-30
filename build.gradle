@@ -1,0 +1,85 @@
+/*
+ ROOT build.gradle file:
+ */
+
+plugins {
+    /*
+    Buraya yazılan özellikler alttaki tüm microservislerde yazılmasa bile etkili olacaktır.
+     */
+    id 'java'
+    id 'org.springframework.boot' version '2.7.17'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'application'
+    id 'java-library'
+}
+
+allprojects {
+    /*
+    tüm projelerde (root+sub) gerekli ayarları belirlemek için:
+     */
+    apply from: "${rootDir}/Dependencies.gradle"
+    apply plugin: 'application'
+    group = 'com.barisd'
+    version = 'v0.1'
+    sourceCompatibility = JavaVersion.VERSION_19
+}
+
+allprojects {
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+    dependencies {
+        /*
+        Bütün projeye yayılacak bağımlılıkları buraya yazıyoruz.
+        Yazarken Dependencies.gradle dosyasındaki libs içindekileri çekeceğiz.
+         */
+        implementation libs.springBootWeb
+
+        compileOnly libs.lombok
+        annotationProcessor libs.lombok
+
+        implementation libs.mapstruct
+        annotationProcessor libs.mapstructProcessor
+
+        implementation libs.swagger
+    }
+}
+
+subprojects {
+    /*
+    sadece sub projelerde gerekli ayarları belirlemek için:
+     */
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java-library'
+
+    buildscript {
+        dependencies {
+            classpath("org.springframework.boot:spring-boot-gradle-plugin:${versions.springBoot}")
+        }
+    }
+
+
+    tasks.named('bootBuildImage') {
+        builder = 'paketobuildpacks/builder-jammy-base:latest'
+    }
+
+    tasks.withType(JavaCompile).configureEach{
+        options.encoding='UTF-8'}
+}
+
+
+
+
