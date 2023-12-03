@@ -4,7 +4,8 @@ ext{
         lombok          :"1.18.30",
         mapstruct       :"1.5.5.Final",
         postgres        :"42.3.8",
-        swagger         :"1.6.15"
+        swagger         :"1.6.15",
+        jwt             :"4.4.0"
     ]
 /*
     Bu kısımda Key Value şeklinde bağımlılık listesi oluşturacağız.
@@ -24,6 +25,8 @@ ext{
 
             postgres                :"org.postgresql:postgresql:$versions.postgres",
 
-            swagger                 :"org.springdoc:springdoc-openapi-ui:$versions.swagger"
+            swagger                 :"org.springdoc:springdoc-openapi-ui:$versions.swagger",
+
+            jwt                     :"com.auth0:java-jwt:$versions.jwt"
     ]
 }

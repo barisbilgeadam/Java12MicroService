@@ -53,6 +53,7 @@ allprojects {
         annotationProcessor libs.mapstructProcessor
 
         implementation libs.swagger
+        implementation libs.jwt
     }
 }
 
