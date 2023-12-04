@@ -1,0 +1,3 @@
+@echo off
+setx JAVA12_SECRETKEY2 "123456789"
+setx JAVA12_ISSUER2 "Java12"

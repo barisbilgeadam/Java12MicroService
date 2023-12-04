@@ -18,6 +18,7 @@ ext{
     libs=[
             springBootWeb           :"org.springframework.boot:spring-boot-starter-web:$versions.springBoot",
             springBootDataJpa       :"org.springframework.boot:spring-boot-starter-data-jpa:$versions.springBoot",
+            springBootDataMongoDB   :"org.springframework.boot:spring-boot-starter-data-mongodb:$versions.springBoot",
 
             lombok                  :"org.projectlombok:lombok:$versions.lombok",
             mapstruct               :"org.mapstruct:mapstruct:$versions.mapstruct",

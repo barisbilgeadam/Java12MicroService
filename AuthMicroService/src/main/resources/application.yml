@@ -11,3 +11,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+#ÖNEMLİ
+# Şifre gibi başkalarının görmesini istemeyeceğimiz verileri yml dosyasında dahi tutmak sakıncalıdır.
+# Bu nedenle bizim bu bilgileri gizlememiz gereklidir.
+# Bu bilgileri gizlemek için Environment variable (Ortam değişkenleri kullanılabilir)
+
+authserviceconfig:
+  secrets:
+    secret-key: ${JAVA12_SECRETKEY}
+    issuer:  ${JAVA12_ISSUER}

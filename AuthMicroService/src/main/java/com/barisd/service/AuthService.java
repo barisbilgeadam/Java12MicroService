@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalLong;
 
 @Service
 public class AuthService extends ServiceManager<Auth,Long> {
@@ -51,16 +52,16 @@ public class AuthService extends ServiceManager<Auth,Long> {
     }
 
     public List<Auth> findAll(String token) {
-//        Long idFromToken;
-//        try {
-//            idFromToken = tokenManager.getIdFromToken(token);
-//        } catch (Exception e) {
-//            throw new AuthServiceException(ErrorType.INVALID_TOKEN_FORMAT);
-//        }
-//
-//        if(!repository.existsById(idFromToken))
-//            throw new AuthServiceException(ErrorType.INVALID_TOKEN);
-//
+        Optional<Long> idFromToken;
+        try {
+            idFromToken = jwtTokenManager.decodeToken(token);
+        } catch (Exception e) {
+            throw new AuthServiceException(ErrorType.INVALID_TOKEN_FORMAT);
+        }
+
+        if(!repository.existsById(idFromToken.get()))
+            throw new AuthServiceException(ErrorType.INVALID_TOKEN);
+
         return findAll();
 
     }
