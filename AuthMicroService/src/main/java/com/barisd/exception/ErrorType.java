@@ -16,7 +16,9 @@ public enum ErrorType {
     DOLOGIN_EMAILORPASSWORD_NOT_EXISTS(2001, "Kullanıcı adı veya şifre yanlış.",HttpStatus.BAD_REQUEST),
 
     INVALID_TOKEN_FORMAT(3001,"Geçersiz token formatı",HttpStatus.BAD_REQUEST),
-    INVALID_TOKEN(3002,"Geçersiz token",HttpStatus.BAD_REQUEST);
+    INVALID_TOKEN(3002,"Geçersiz token",HttpStatus.BAD_REQUEST),
+
+    INTERNAL_SERVER_ERROR(5002,"Server hatası",HttpStatus.INTERNAL_SERVER_ERROR);
 
     private int code;
     private String mesaj;

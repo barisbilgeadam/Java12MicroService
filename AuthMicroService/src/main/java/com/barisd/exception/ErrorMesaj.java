@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -12,7 +13,15 @@ import java.util.List;
 @Data
 @Builder
 public class ErrorMesaj {
-    int code;
-    String mesaj;
-    List<String> fields;
+
+    private ErrorType code;
+    private String mesaj;
+    private List<String> fields;
+
+    public void addField(String field) {
+        if (fields == null) {
+            fields = new ArrayList<>();
+        }
+        fields.add(field);
+    }
 }
