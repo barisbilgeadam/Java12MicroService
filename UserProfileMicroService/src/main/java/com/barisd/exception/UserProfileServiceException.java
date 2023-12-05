@@ -6,22 +6,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class AuthServiceException extends RuntimeException{
+public class UserProfileServiceException extends RuntimeException{
     private final List<ErrorType> errorTypes;
 
-    public AuthServiceException(ErrorType errorType) {
+    public UserProfileServiceException(ErrorType errorType) {
         super(errorType.getMessage());
         this.errorTypes = new ArrayList<>();
         this.errorTypes.add(errorType);
     }
 
-    public AuthServiceException(ErrorType errorType, String customMesaj) {
+    public UserProfileServiceException(ErrorType errorType, String customMesaj) {
         super(customMesaj);
         this.errorTypes = new ArrayList<>();
         this.errorTypes.add(errorType);
     }
 
-    public AuthServiceException(List<ErrorType> errorTypes) {
+    public UserProfileServiceException(List<ErrorType> errorTypes) {
         super("Birden Fazla Hata Meydana Geldi.");
         this.errorTypes = errorTypes;
     }

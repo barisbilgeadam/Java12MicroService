@@ -18,6 +18,8 @@ public enum ErrorType {
     INVALID_TOKEN_FORMAT(3001,"Geçersiz token formatı",HttpStatus.BAD_REQUEST),
     INVALID_TOKEN(3002,"Geçersiz token",HttpStatus.BAD_REQUEST),
 
+    USER_NOT_FOUND(4001,"Kullanıcı bulunamadı",HttpStatus.BAD_REQUEST),
+
     INTERNAL_SERVER_ERROR(5002,"Server hatası",HttpStatus.INTERNAL_SERVER_ERROR),
     RUNTIME_ERROR(6001,"Runtime hatası",HttpStatus.BAD_REQUEST),
     PARAMETER_NOT_VALID(5000,"Parametre Hatası",HttpStatus.BAD_REQUEST);

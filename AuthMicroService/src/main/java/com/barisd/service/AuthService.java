@@ -2,28 +2,35 @@ package com.barisd.service;
 
 import com.barisd.dto.request.DoLoginRequestDto;
 import com.barisd.dto.request.RegisterRequestDto;
+import com.barisd.dto.request.UserProfileSaveRequestDto;
 import com.barisd.exception.AuthServiceException;
 import com.barisd.exception.ErrorType;
+import com.barisd.manager.IUserProfileManager;
 import com.barisd.mapper.IAuthMapper;
 import com.barisd.repository.IAuthRepository;
 import com.barisd.repository.entity.Auth;
 import com.barisd.utility.JwtTokenManager;
 import com.barisd.utility.ServiceManager;
-import com.barisd.utility.TokenManager;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalLong;
 
 @Service
 public class AuthService extends ServiceManager<Auth,Long> {
     private final IAuthRepository repository;
     private final JwtTokenManager jwtTokenManager;
-    public AuthService(IAuthRepository repository, JwtTokenManager jwtTokenManager) {
+    private final IUserProfileManager iUserProfileManager;
+    /**
+     * Oluşan hataları liste şeklinde tutup geri dönmek istersek:
+     */
+
+    public AuthService(IAuthRepository repository, JwtTokenManager jwtTokenManager, IUserProfileManager iUserProfileManager) {
         super(repository);
         this.repository = repository;
         this.jwtTokenManager = jwtTokenManager;
+        this.iUserProfileManager = iUserProfileManager;
     }
 
     public Optional<Auth> findOptionalByEmailAndPassword(String email, String password){
@@ -31,10 +38,17 @@ public class AuthService extends ServiceManager<Auth,Long> {
     }
 
     public Auth register(RegisterRequestDto dto) {
+        List<ErrorType> errorTypes = new ArrayList<>();
         if(repository.existsByEmail(dto.getEmail()))
-            throw new AuthServiceException(ErrorType.REGISTER_EMAIL_ALREADY_EXISTS);
+            errorTypes.add(ErrorType.REGISTER_EMAIL_ALREADY_EXISTS);
+
+        if (!errorTypes.isEmpty()) {
+            throw new AuthServiceException(errorTypes);
+        }
         Auth auth=IAuthMapper.INSTANCE.registerRequestDtoToAuth(dto);
-        return save(auth);
+        save(auth);
+        iUserProfileManager.save(IAuthMapper.INSTANCE.fromAuth(auth));
+        return auth;
     }
 
     /**
@@ -46,22 +60,31 @@ public class AuthService extends ServiceManager<Auth,Long> {
      */
 
     public String doLogin(DoLoginRequestDto dto) {
+        List<ErrorType> errorTypes = new ArrayList<>();
         Optional<Auth> auth = repository.findOptionalByEmailAndPassword(dto.getEmail(), dto.getPassword());
-        if(auth.isEmpty()) throw new AuthServiceException(ErrorType.DOLOGIN_EMAILORPASSWORD_NOT_EXISTS);
+        if(auth.isEmpty())
+            errorTypes.add(ErrorType.DOLOGIN_EMAILORPASSWORD_NOT_EXISTS);
+
+        if (!errorTypes.isEmpty()) {
+            throw new AuthServiceException(errorTypes);
+        }
         return jwtTokenManager.createToken(auth.get().getId()).get();
     }
 
     public List<Auth> findAll(String token) {
+        List<ErrorType> errorTypes = new ArrayList<>();
         Optional<Long> idFromToken;
         try {
             idFromToken = jwtTokenManager.decodeToken(token);
         } catch (Exception e) {
+            errorTypes.add(ErrorType.INVALID_TOKEN_FORMAT);
             throw new AuthServiceException(ErrorType.INVALID_TOKEN_FORMAT);
         }
-
         if(!repository.existsById(idFromToken.get()))
-            throw new AuthServiceException(ErrorType.INVALID_TOKEN);
-
+            errorTypes.add(ErrorType.INVALID_TOKEN);
+        if (!errorTypes.isEmpty()) {
+            throw new AuthServiceException(errorTypes);
+        }
         return findAll();
 
     }

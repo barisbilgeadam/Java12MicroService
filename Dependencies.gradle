@@ -1,6 +1,7 @@
 ext{
     versions=[
         springBoot      :"2.7.17",
+        springCloud     :"3.1.8",
         lombok          :"1.18.30",
         mapstruct       :"1.5.5.Final",
         postgres        :"42.3.8",
@@ -13,12 +14,15 @@ ext{
     2. projenin goup-idsini yaz ve 2 nokta üst üste koy.
     3. projenin artifact-idsini yaz ve 2 nokta üst üste koy.
     4. Versiyon numarasını yaz veya yukarıda o versiyon numarasını tuttuğumuz key değerini ekle.
+
  */
 
     libs=[
             springBootWeb           :"org.springframework.boot:spring-boot-starter-web:$versions.springBoot",
             springBootDataJpa       :"org.springframework.boot:spring-boot-starter-data-jpa:$versions.springBoot",
             springBootDataMongoDB   :"org.springframework.boot:spring-boot-starter-data-mongodb:$versions.springBoot",
+
+            springCloudOpenFeign    :"org.springframework.cloud:spring-cloud-starter-openfeign:$versions.springCloud",
 
             lombok                  :"org.projectlombok:lombok:$versions.lombok",
             mapstruct               :"org.mapstruct:mapstruct:$versions.mapstruct",

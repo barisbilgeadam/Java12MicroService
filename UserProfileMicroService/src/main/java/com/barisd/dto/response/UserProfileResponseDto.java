@@ -1,4 +1,4 @@
-package com.barisd.dto.request;
+package com.barisd.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class UserProfileSaveRequestDto {
-    Long authid;
+public class UserProfileResponseDto {
+    String id;
     String username;
     String email;
+    String photo;
+    String phone;
+    String website;
 }

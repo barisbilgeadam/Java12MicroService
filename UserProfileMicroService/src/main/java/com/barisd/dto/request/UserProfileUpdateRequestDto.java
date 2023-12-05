@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class UserProfileSaveRequestDto {
-    Long authid;
-    String username;
+public class UserProfileUpdateRequestDto {
+    String token;
+
     String email;
+    String photo;
+    String phone;
+    String website;
 }

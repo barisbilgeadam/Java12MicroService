@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,16 +13,12 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Builder
-public class ErrorMesaj {
+public class ErrorMessage {
 
-    private ErrorType code;
-    private String mesaj;
+    private int code;
+    private String message;
     private List<String> fields;
+    @Builder.Default
+    private LocalDateTime dateTime = LocalDateTime.now();
 
-    public void addField(String field) {
-        if (fields == null) {
-            fields = new ArrayList<>();
-        }
-        fields.add(field);
-    }
 }

@@ -41,7 +41,7 @@ public class AuthController {
         return ResponseEntity.ok(authService.doLogin(dto));
     }
 
-    @GetMapping(GETALL)
+    @GetMapping(FINDALL)
     public ResponseEntity<List<Auth>> findAll(String token){
         return ResponseEntity.ok(authService.findAll(token));
     }

@@ -45,6 +45,9 @@ allprojects {
         Yazarken Dependencies.gradle dosyasındaki libs içindekileri çekeceğiz.
          */
         implementation libs.springBootWeb
+        implementation libs.springCloudOpenFeign
+
+
 
         compileOnly libs.lombok
         annotationProcessor libs.lombok

@@ -1,22 +1,22 @@
 package com.barisd.repository.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
+
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Builder
+@SuperBuilder
 @Document //mongodb için.
-public class UserProfile {
+public class UserProfile extends BaseEntity {
     @MongoId
     String id; //document nosql dblerde id uuid tarafından oluşturulur. Bu da stringe karşılık gelir.
-    Long authId;
+    Long authid;
     String username;
     String email;
     String photo;

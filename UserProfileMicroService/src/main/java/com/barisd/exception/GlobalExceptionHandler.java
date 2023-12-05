@@ -15,9 +15,9 @@ public class GlobalExceptionHandler {
 
 
 
-    @ExceptionHandler(AuthServiceException.class)
+    @ExceptionHandler(UserProfileServiceException.class)
     @ResponseBody
-    public ResponseEntity<ErrorMessage> handleManagerException(AuthServiceException exception) {
+    public ResponseEntity<ErrorMessage> handleManagerException(UserProfileServiceException exception) {
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST; // Varsayılan durum
         List<ErrorType> errorTypes = exception.getErrorTypes();
         List<String> errorMessages = new ArrayList<>();
