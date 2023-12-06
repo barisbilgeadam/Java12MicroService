@@ -21,6 +21,7 @@ ext{
             springBootWeb           :"org.springframework.boot:spring-boot-starter-web:$versions.springBoot",
             springBootDataJpa       :"org.springframework.boot:spring-boot-starter-data-jpa:$versions.springBoot",
             springBootDataMongoDB   :"org.springframework.boot:spring-boot-starter-data-mongodb:$versions.springBoot",
+            springBootValidation    :"org.springframework.boot:spring-boot-starter-validation:$versions.springBoot",
 
             springCloudOpenFeign    :"org.springframework.cloud:spring-cloud-starter-openfeign:$versions.springCloud",
 

@@ -46,8 +46,7 @@ allprojects {
          */
         implementation libs.springBootWeb
         implementation libs.springCloudOpenFeign
-
-
+        implementation libs.springBootValidation
 
         compileOnly libs.lombok
         annotationProcessor libs.lombok

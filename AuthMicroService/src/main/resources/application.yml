@@ -4,9 +4,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/Java12Auth
+    url: jdbc:postgresql://192.168.0.49:5433/Java12Auth
     username: postgres
-    password: 1234
+    password: root
 
   jpa:
     hibernate:
