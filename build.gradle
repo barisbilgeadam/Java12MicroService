@@ -47,6 +47,10 @@ allprojects {
         implementation libs.springBootWeb
         implementation libs.springCloudOpenFeign
         implementation libs.springBootValidation
+        implementation libs.springCloudConfigClient
+        implementation libs.springCloudSleuth
+        implementation libs.springCloudSleuthZipkin
+
 
         compileOnly libs.lombok
         annotationProcessor libs.lombok

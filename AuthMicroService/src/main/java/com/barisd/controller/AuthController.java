@@ -47,4 +47,12 @@ public class AuthController {
         return ResponseEntity.ok(authService.findAll(token));
     }
 
+    /**
+     * ApiGateway Test Endpointi
+     */
+
+    @GetMapping("/message")
+    public ResponseEntity<String> getMessage(){
+        return ResponseEntity.ok("Auth Service get Message erişim sağlandı.");
+    }
 }

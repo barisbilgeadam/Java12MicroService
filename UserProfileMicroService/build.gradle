@@ -1,3 +1,4 @@
 dependencies {
     implementation libs.springBootDataMongoDB
+    implementation libs.springBootAmqp
 }

@@ -1,0 +1,27 @@
+server:
+  port: 9091
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: user
+    password: user
+  zipkin:
+    enabled: true
+    base-url: http://localhost:9411
+    service:
+      name: user-service
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: UserProfileDB
+      username: defaultUser
+      password: bilge!123
+
+
+authserviceconfig:
+  secrets:
+    secret-key: ${JAVA12_SECRETKEY}
+    issuer:  ${JAVA12_ISSUER}

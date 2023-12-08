@@ -1,4 +1,6 @@
 dependencies {
     implementation libs.springBootDataJpa
     implementation libs.postgres
+    implementation libs.springBootAmqp
+
 }
