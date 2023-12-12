@@ -2,11 +2,12 @@ package com.barisd.service;
 
 import com.barisd.dto.request.DoLoginRequestDto;
 import com.barisd.dto.request.RegisterRequestDto;
-import com.barisd.dto.request.UserProfileSaveRequestDto;
 import com.barisd.exception.AuthServiceException;
 import com.barisd.exception.ErrorType;
 import com.barisd.manager.IUserProfileManager;
 import com.barisd.mapper.IAuthMapper;
+import com.barisd.rabbitmq.model.SaveAuthModel;
+import com.barisd.rabbitmq.producer.CreateUserProducer;
 import com.barisd.repository.IAuthRepository;
 import com.barisd.repository.entity.Auth;
 import com.barisd.utility.JwtTokenManager;
@@ -22,15 +23,17 @@ public class AuthService extends ServiceManager<Auth,Long> {
     private final IAuthRepository repository;
     private final JwtTokenManager jwtTokenManager;
     private final IUserProfileManager iUserProfileManager;
+    private final CreateUserProducer createUserProducer;
     /**
      * Oluşan hataları liste şeklinde tutup geri dönmek istersek:
      */
 
-    public AuthService(IAuthRepository repository, JwtTokenManager jwtTokenManager, IUserProfileManager iUserProfileManager) {
+    public AuthService(IAuthRepository repository, JwtTokenManager jwtTokenManager, IUserProfileManager iUserProfileManager, CreateUserProducer createUserProducer) {
         super(repository);
         this.repository = repository;
         this.jwtTokenManager = jwtTokenManager;
         this.iUserProfileManager = iUserProfileManager;
+        this.createUserProducer = createUserProducer;
     }
 
     public Optional<Auth> findOptionalByEmailAndPassword(String email, String password){
@@ -47,7 +50,14 @@ public class AuthService extends ServiceManager<Auth,Long> {
         }
         Auth auth=IAuthMapper.INSTANCE.registerRequestDtoToAuth(dto);
         save(auth);
-        iUserProfileManager.save(IAuthMapper.INSTANCE.fromAuth(auth));
+       // iUserProfileManager.save(IAuthMapper.INSTANCE.fromAuth(auth)); // OpenFeign ile UserProfileService'e mesaj gönderme.
+        createUserProducer.convertAndSend(SaveAuthModel.builder()
+                        .authid(auth.getId())
+                        .email(auth.getEmail())
+                        .username(auth.getUsername())
+                .build());
+
+
         return auth;
     }
 

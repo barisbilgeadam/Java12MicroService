@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * ÖNEMLİ!!!
  * Mutlaka tüm modeller serileştirilimelidir.
- * Ayrıca paket ismi dahil bu sunufun aynısı iletilen serviste de olmalıdır.
+ * Ayrıca paket ismi dahil bu sınıfın aynısı iletilen serviste de olmalıdır.
  */
 
 @NoArgsConstructor
