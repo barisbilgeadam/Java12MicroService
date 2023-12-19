@@ -1,4 +1,4 @@
-package com.barisd.config;
+package com.barisd.config.rabbit;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
