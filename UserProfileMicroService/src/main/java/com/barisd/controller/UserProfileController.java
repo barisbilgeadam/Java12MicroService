@@ -39,4 +39,21 @@ public class UserProfileController {
     public ResponseEntity<List<UserProfile>> findAll(){
         return ResponseEntity.ok(userProfileService.findAll());
     }
+
+    @GetMapping("/getuppername")
+    public ResponseEntity<String> getUpperName(String name){
+        return ResponseEntity.ok(userProfileService.getUpper(name));
+    }
+
+    @GetMapping("/clearcache")
+    public ResponseEntity<Void> clearCache(){
+        userProfileService.clearCache();
+        return ResponseEntity.ok().build();
+    }
+    @DeleteMapping("{name}")
+    public ResponseEntity<Void> removeProductById(@PathVariable String name)
+    {
+        userProfileService.removeName(name);
+        return ResponseEntity.ok().build();
+    }
 }

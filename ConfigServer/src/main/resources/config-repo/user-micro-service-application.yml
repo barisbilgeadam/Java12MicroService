@@ -26,3 +26,8 @@ authserviceconfig:
   secrets:
     secret-key: ${JAVA12_SECRETKEY}
     issuer:  ${JAVA12_ISSUER}
+
+
+redisconfig:
+  host: localhost
+  port: 6379

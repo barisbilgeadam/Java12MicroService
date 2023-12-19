@@ -11,7 +11,11 @@ import com.barisd.repository.UserProfileRepository;
 import com.barisd.repository.entity.UserProfile;
 import com.barisd.utility.JwtTokenManager;
 import com.barisd.utility.ServiceManager;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
@@ -67,4 +71,36 @@ public class UserProfileService extends ServiceManager<UserProfile,String> {
         return true;
 
     }
+
+    /**
+     * Burada uzun sürecek bir işlem Thread.sleep ile simule ediliyor.
+     * Buradaki metod girdiye göre hep aynı sınucu üretecektir.
+     * örnek:
+     * bahadır -> BAHADIR
+     *
+     *  condition = "#name.startsWith('A')"
+     * @param name
+     * @return
+     */
+    @Cacheable(value = "getUpperName", unless = "#name.startsWith('A')")
+    public String getUpper(String name){
+        try {
+            Thread.sleep(3000L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return name.toUpperCase();
+    }
+
+    @CacheEvict(value = "getUpperName", allEntries = true)
+    public void clearCache(){
+        System.out.println("Cache temizlendi...");
+    }
+
+
+    @CacheEvict(cacheNames = "getUpperName", key = "#name", beforeInvocation = true)
+    public void removeName(String name){
+        System.out.println(name+" cacheden silindi.");
+    }
+
 }
