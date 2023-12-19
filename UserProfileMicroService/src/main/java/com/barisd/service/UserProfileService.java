@@ -30,6 +30,11 @@ public class UserProfileService extends ServiceManager<UserProfile,String> {
         this.jwtTokenManager = jwtTokenManager;
     }
 
+    public Optional<UserProfile> findByAuthid(Long authid){
+        return repository.findOptionalByAuthid(authid);
+    }
+
+
     public Boolean saveDto(UserProfileSaveRequestDto dto) {
             save(IUserProfileMapper.INSTANCE.dtoToUserProfile(dto));
             return true;
