@@ -9,6 +9,7 @@ public class EndPoints {
     public static final String ROOT=API+VERSION;
 
     public static final String USER="/user";
+    public static final String YETKI="/yetki";
 
 
 

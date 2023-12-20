@@ -12,9 +12,6 @@ import java.util.List;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
-
-
     @ExceptionHandler(UserProfileServiceException.class)
     @ResponseBody
     public ResponseEntity<ErrorMessage> handleManagerException(UserProfileServiceException exception) {
