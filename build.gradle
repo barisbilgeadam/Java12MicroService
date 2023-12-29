@@ -60,6 +60,11 @@ allprojects {
 
         implementation libs.swagger
         implementation libs.jwt
+
+        testImplementation libs.springBootTest
+    }
+    tasks.named('test') {
+        useJUnitPlatform()
     }
 }
 
